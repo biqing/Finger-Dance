@@ -1,0 +1,320 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+canvas {
+    display: block;
+}
+
+body {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 18px;
+}
+
+h1 {
+    font-size: 40px;
+    padding-top: 56px;
+    color: #E2025A;
+}
+
+p {
+    margin: 10px auto;
+    width: 220px;
+    padding-left: 15px;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a.button {
+    border-radius: 5px;
+    display: block;
+    font-size: 32px;
+    padding: 10px;
+    text-shadow: 1px 1px 2px #999;
+}
+
+#game {
+    position: relative;
+    z-index: 2;
+    top: 0;
+    width: 320px;
+    padding: 0;
+    font-size: 20px;
+    height: 480px;
+    margin: auto;
+}
+
+#gameCanvas {
+    background-image: url("../image/play_bg.png");
+    background-size: 320px 460px;
+    background-repeat: no-repeat;
+}
+
+#gameUI {
+    height: 460px;
+    position: absolute; /* Places UI on top of the canvas */
+    width: 320px;
+}
+
+#gameIntro {
+    height: 480px;
+    position: absolute;
+    width: 100%;
+    background-image: url("../image/bg2.png");
+    text-align: center;
+    background-size: 320px 460px;
+    background-repeat: no-repeat;
+}
+
+#gamePlay {
+    margin: 297px auto;
+    width: 147px;
+    height: 52px;
+    /*border-radius: 10px;
+    background-color: #B6D560;*/
+    background-image: url("../image/btn1.png");
+    background-size: 168px 52px;
+    background-repeat: no-repeat;
+    line-height: 23px;
+    text-shadow: 1px 2px 1px #999;
+}
+
+#gameStage {
+    height: 480px;
+    width: 100%;
+    background-image: url("../image/bg3.png");
+    text-align: center;
+    background-size: 320px 460px;
+    background-repeat: no-repeat;
+    display: none;
+}
+
+.stagebutton {
+    background-image: url("../image/btn2.png");
+    background-size: 194px 52px;
+    background-repeat: no-repeat;
+    line-height: 23px;
+    height: 32px;
+    width: 182px;
+}
+
+#gameLoading {
+    height: 480px;
+    width: 100%;
+    background-image: url("../image/bg3.png");
+    text-align: center;
+    background-size: 320px 460px;
+    background-repeat: no-repeat;
+    display: none;
+}
+
+#gameLoading img {
+    position: absolute;
+    left: 144px;
+    top: 214px;
+}
+
+#gameStats {
+    font-size: 15px;
+    display: none;
+}
+
+#timeBackground {
+    background-color: #B6D560;
+    width: 320px;
+}
+
+#timeProgress {
+    background-color: #96BF3D;
+    height: 20px;
+}
+
+#gameTime {
+    position: absolute;
+    right: 8px;
+    top: 0;
+    color: white;
+}
+
+#gameScore {
+    position: absolute;
+    left: 16px;
+    top: 35px;
+    color: #C6955C;
+    font-size: 20px;
+    text-shadow: 0 0 1px #C6955C;
+    font-weight: bold;
+}
+
+#gameMessage {
+    position: absolute;
+    right: 16px;
+    top: 35px;
+    color: #E2025A;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#touchEvent {
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    width: 320px;
+    height: 440px;
+}
+
+#gamePlayControl {
+    position: absolute;
+    width: 57px;
+    height: 57px;
+    left: 13px;
+    bottom: 13px;
+    background-image: url("../image/play_spirit.png");
+    background-size: 57px 171px;
+}
+
+#gameReplay {
+    position: absolute;
+    width: 57px;
+    height: 57px;
+    right: 13px;
+    bottom: 13px;
+    background-image: url("../image/play_spirit.png");
+    background-size: 57px 171px;
+    background-position: 0 -114px;
+}
+
+#gameResult {
+    height: 480px;
+    width: 100%;
+    background-image: url("../image/bg3.png");
+    text-align: center;
+    background-size: 320px 460px;
+    background-repeat: no-repeat;
+    display: none;
+}
+
+#gameRank {
+    height: 480px;
+    width: 100%;
+    background-image: url("../image/bg3.png");
+    text-align: center;
+    background-size: 320px 460px;
+    background-repeat: no-repeat;
+    display: none;
+}
+
+#wrapper {
+    position: absolute;
+    z-index: 1;
+    top: 45px;
+    bottom: 48px;
+    left: 0;
+    width: 100%;
+    background: #aaa;
+    overflow: auto;
+    height: 0;
+}
+
+#scroller {
+    position: absolute;
+    z-index: 1;
+    /*	-webkit-touch-callout:none;*/
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px
+}
+
+li {
+    list-style: none;
+    padding: 0px;
+    margin: 0px
+}
+
+.list_Module {
+    width: 255px;
+    height: 248px;
+    background: #9BA4AE;
+    border-radius: 10px;
+    margin: 25px auto;
+    text-align: left;
+}
+
+.list_Module input {
+    padding: 5px;
+    background: #FFF;
+    border-radius: 10px;
+    display: block;
+    width: 170px;
+    margin: auto;
+    text-align: center;
+    color: #9ba4ae;
+    border: none;
+    font-size: 1em;
+}
+
+.list_Module_top {
+    width: 255px;
+    height: 30px;
+}
+
+.list_Module .rl {
+    width: 13px;
+    height: 13px;
+    display: block;
+    float: left;
+    border-radius: 99999px;
+    background: #FFF;
+    margin-top: 17px;
+    margin-left: 15px;
+}
+
+.list_Module .rr {
+    width: 13px;
+    height: 13px;
+    display: block;
+    float: right;
+    border-radius: 99999px;
+    background: #FFF;
+    margin-right: 15px;
+    margin-top: 17px;
+}
+
+.list_Module ul {
+    padding: 15px 25px 0px 25px;
+}
+
+.list_Module ul li {
+    color: #FFF;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.list_Module ul li span {
+    float: right;
+    color: #fad642
+}
+
+.list_Module_bot {
+    width: 255px;
+    height: 30px;
+}

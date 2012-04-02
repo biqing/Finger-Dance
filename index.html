@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- web app icon -->
+    <link rel="apple-touch-icon" href="image/fd_icon.png"/>
+    <!-- web app 状态栏样式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- web app bg up page -->
+    <!-- 320x460 for iPhone 3GS -->
+    <link rel="apple-touch-startup-image" media="(max-device-width: 480px) and not (-webkit-min-device-pixel-ratio: 2)"
+          href="image/bg.png"/>
+
+    <!-- 640x920 for retina display -->
+    <link rel="apple-touch-startup-image" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)"
+          href="image/bg.png"/>
+
+    <!-- iPad Portrait 768x1004 -->
+    <link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: portrait)"
+          href="image/bg.png"/>
+
+    <!-- iPad Landscape 1024x748 -->
+    <link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: landscape)"
+          href="image/bg.png"/>
+
+    <link rel="apple-touch-startup-image" href="image/bg.png"/>
+    <meta name='description' content='dance with fingers'>
+    <meta name='author' content='FD'>
+    <title>Finger Dance</title>
+    <link rel="stylesheet" href="css/add2home.css">
+    <script type="application/javascript" src="libs/add2home.js"></script>
+    <link rel='stylesheet' type='text/css' href='css/game.css'/>
+    <script type="text/javascript" src="js/jq.mobi.min.js"></script>
+    <script type="text/javascript" src="libs/iscroll.js"></script>
+    <script type="text/javascript">
+        var myScroll;
+        function loaded(){
+            myScroll = new iScroll('wrapper');
+        }
+
+        document.addEventListener('touchmove', function (e){
+            e.preventDefault();
+        }, false);
+
+        /* * * * * * * *
+         *
+         * Use this for high compatibility (iDevice + Android)
+         *
+         */
+        document.addEventListener('DOMContentLoaded', function (){
+            setTimeout(loaded, 200);
+        }, false);
+        /*
+         * * * * * * * */
+
+
+        /* * * * * * * *
+         *
+         * Use this for iDevice only
+         *
+         */
+        //document.addEventListener('DOMContentLoaded', loaded, false);
+        /*
+         * * * * * * * */
+
+
+        /* * * * * * * *
+         *
+         * Use this if nothing else works
+         *
+         */
+        //window.addEventListener('load', setTimeout(function () { loaded(); }, 200), false);
+        /*
+         * * * * * * * */
+    </script>
+</head>
+<body>
+<div id="game">
+    <div id="gameUI">
+        <div id="gameIntro">
+            <p><a id="gamePlay" class="button" href="">开始</a></p>
+        </div>
+        <div id="gameStage">
+            <h1>选关</h1>
+
+            <p><a class="button stagebutton" href="libs/music.json" title="Music Name"
+                  data-url="http://yuanwang-public.stor.sinaapp.com/tiktok_new.mp3">Tik tok</a></p>
+
+            <p><a class="button stagebutton" href="">Stage 2</a></p>
+        </div>
+        <div id="gameLoading">
+            <img src="image/loading.gif"/>
+        </div>
+        <div id="gameStats">
+            <div id="timeBackground">
+                <div id="timeProgress"></div>
+            </div>
+            <span id="gameTime">Time</span>
+            <span id="gameScore">Score:<span id="scoreValue"></span></span>
+            <span id="gameMessage">Message</span>
+
+            <div id="touchEvent"></div>
+
+            <div id="gamePlayControl"></div>
+            <div id="gameReplay"></div>
+        </div>
+        <div id="gameResult">
+            <h1>战绩</h1>
+
+            <div class="list_Module">
+                <div class="list_Module_top">
+                    <span class="rl"></span>
+                    <span class="rr"></span>
+                </div>
+                <input id="userInput" type="text" onblur="insertData();"/>
+                <ul>
+                    <li>总分 <span id="userscore"></span></li>
+                    <li>成功 <span id="successpoint"></span></li>
+                    <li>错误 <span id="errorpoint"></span></li>
+                    <li>Miss <span id="misspoint"></span></li>
+                </ul>
+                <div class="list_Module_bot">
+                    <span class="rl"></span>
+                    <span class="rr"></span>
+                </div>
+            </div>
+        </div>
+        <div id="gameRank">
+            <h1>排行</h1>
+
+            <div class="list_Module">
+                <div class="list_Module_top">
+                    <span class="rl"></span>
+                    <span class="rr"></span>
+                </div>
+                <ul id="gameRankData">
+                </ul>
+                <div class="list_Module_bot">
+                    <span class="rl"></span>
+                    <span class="rr"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <canvas id="gameCanvas" width="320" height="480">
+        <!-- Insert fallback content here -->
+    </canvas>
+
+</div>
+<div id="wrapper">
+    <div id="scroller">
+    </div>
+</div>
+<script type="text/javascript" src="game.js"></script>
+<script type="text/javascript" src="js/play.js"></script>
+</body>
+</html>
