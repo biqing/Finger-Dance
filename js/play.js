@@ -1,5 +1,4 @@
 ﻿var play = {};
-var $Message = $('#gameMessage');
 
 play.init = function (canvas){
     var uiStats = $("#touchEvent");
@@ -43,51 +42,18 @@ play.touchupdate = function (){
     console.log(len);
     for (i = 0; i < len; i++) {
         var touch = play.touches[i];
-        //directionButtons.top
-        var isTouch = play.isTouch(directionButtons.top, touch);
-        if (isTouch) {
-            if (sTop) {
-                directionButtons.top.success();
-                sTop = false;
-            } else {
-                directionButtons.top.fail();
+        var button, isTouch;
+        for (var j = directionButtons.length; j--;) {
+            button = directionButtons[j];
+            isTouch = play.isTouch(button, touch);
+            if (isTouch) {
+                if (button.state=="start") {
+                    button.success();
+                } else {
+                    button.fail();
+                }
+                break; //继续下一个触点
             }
-            continue; //继续下一个触点
-        }
-        //directionButtons.bottom
-        isTouch = play.isTouch(directionButtons.bottom, touch);
-        if (isTouch) {
-            if (sBottom) {
-                directionButtons.bottom.success();
-                sBottom = false;
-            } else {
-                directionButtons.bottom.fail();
-            }
-            continue; //继续下一个触点
-        }
-
-        //directionButtons.left
-        isTouch = play.isTouch(directionButtons.left, touch);
-        if (isTouch) {
-            if (sLeft) {
-                directionButtons.left.success();
-                sLeft = false;
-            } else {
-                directionButtons.left.fail();
-            }
-            continue; //继续下一个触点
-        }
-
-        //directionButtons.right
-        isTouch = play.isTouch(directionButtons.right, touch);
-        if (isTouch) {
-            if (sRight) {
-                directionButtons.right.success();
-                sRight = false;
-            } else {
-                directionButtons.right.fail();
-            }
-            continue; //继续下一个触点
         }
     }
 
@@ -128,5 +94,5 @@ play.touchend = function (){
 play.isTouch = function (button, touch){
     var dx = Math.abs(button.x - touch.pageX);
     var dy = Math.abs(button.y - touch.pageY);
-    return (dx <= image_W / 4) && (dy <= image_H / 4);
+    return (dx <= image_W / 2) && (dy <= image_H / 2);
 }
