@@ -1,4 +1,5 @@
-var directionButtons = []; // Array that holds all the directionButtons
+// Array that holds all the directionButtons
+var directionButtons = [];
 var image_W = 134 / 2;
 var image_H = 134 / 2;
 var userscore = 0,
@@ -24,6 +25,10 @@ $(document).ready(function (){
         var db;
         var audioEl;
         var playGame;
+        var arrowLeft = 37;
+        var arrowUp = 38;
+        var arrowRight = 39;
+        var arrowDown = 40;
 
         // Game UI
         var ui = $("#gameUI");
@@ -40,12 +45,22 @@ $(document).ready(function (){
         var uiMessage = $("#gameMessage");
         var uiScore = $(".gameScore");
         var uiScoreValue = $("#scoreValue");
+        var waitImage = new Image();
+        waitImage.src = "image/wait.png";
+        var startImage = new Image();
+        startImage.src = "image/start.png";
+        var goodImage = new Image();
+        goodImage.src = "image/good.png";
+        var missImage = new Image();
+        missImage.src = "image/miss.png";
 
         // DirectionButton class
         var DirectionButton = function (x, y, angle){
+            // x,y为矩形中中心
             this.x = x;
             this.y = y;
             this.angle = angle;
+            // 初始化为常态
             this.state = "wait";
         };
 
@@ -58,15 +73,34 @@ $(document).ready(function (){
                 this.draw();
             },
             draw : function (){
-                var img = new Image();
-                img.src = "image/" + this.state + ".png";
+                var img;
+                switch (this.state) {
+                    case "wait":
+                        img = waitImage;
+                        break;
+                    case "start":
+                        img = startImage;
+                        break;
+                    case "good":
+                        img = goodImage;
+                        break;
+                    case "miss":
+                        img = missImage;
+                        break;
+                }
+                // 保存画布
                 ctx.save();
+                // 将坐标系原点移至矩形中心
                 ctx.translate(this.x, this.y);
+                // 旋转坐标系
                 ctx.rotate(this.angle);
+                ctx.clearRect(-image_W / 2, -image_H / 2, image_W, image_H);
                 ctx.drawImage(img, -image_W / 2, -image_H / 2, image_W, image_H);
+                // 恢复画布
                 ctx.restore();
             },
             success : function (){
+                var self = this;
                 // 加分
                 userscore += 10;
                 uiScoreValue.html(userscore);
@@ -78,7 +112,7 @@ $(document).ready(function (){
                 this.setState("good");
                 //还原
                 this.successTimer = setTimeout(function (){
-                    this.setState("wait");
+                    self.setState("wait");
                 }, 500);
             },
             fail : function (){
@@ -102,6 +136,31 @@ $(document).ready(function (){
             uiTime.html("--:--/--:--");
             uiScore.html("0");
             uiStats.show();
+
+            function pressButton(button){
+                if (button.state == "start") {
+                    button.success();
+                } else {
+                    button.fail();
+                }
+            }
+
+            $(window).bind("keydown", function (e){
+                switch (e.keyCode) {
+                    case arrowUp:
+                        pressButton(directionButtons[0]);
+                        break;
+                    case arrowRight:
+                        pressButton(directionButtons[1]);
+                        break;
+                    case arrowDown:
+                        pressButton(directionButtons[2]);
+                        break;
+                    case arrowLeft:
+                        pressButton(directionButtons[3]);
+                        break;
+                }
+            });
 
             // Set up initial game settings
             playGame = true;
@@ -131,7 +190,7 @@ $(document).ready(function (){
                 //left
                 [42, 218, Math.PI * 1.5]
             ];
-            for (var i = buttonConfig.length; i--;) {
+            for (var i = 0, len = buttonConfig.length; i < len; i++) {
                 button = buttonConfig[i];
                 directionButtons.push(new DirectionButton(button[0], button[1], button[2]));
             }
@@ -217,6 +276,7 @@ $(document).ready(function (){
         }
 
         function onGameComplete(){
+            $(window).unbind("keydown");
             audioEl.pause();
             uiStage.hide();
             uiStats.hide();
